@@ -1,21 +1,21 @@
+"use client";
+
 import "./globals.css";
 import "bootstrap-material-design/dist/css/bootstrap-material-design.min.css";
 import TopNav from "@/components/TopNav";
 import { Toaster } from "react-hot-toast";
-
-export const metadata = {
-  title: "Nextecom",
-  description: "Ecommerce app using NexJs Fukk Stack",
-};
+import { SessionProvider } from "next-auth/react";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <TopNav />
-        <Toaster />
-        {children}
-      </body>
+      <SessionProvider>
+        <body>
+          <TopNav />
+          <Toaster />
+          {children}
+        </body>
+      </SessionProvider>
     </html>
   );
 }
