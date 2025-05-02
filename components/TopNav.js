@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 
 const TopNav = () => {
-  const { data, status, loading } = useSession();
+  const { data, status } = useSession();
 
   return (
     <nav className="nav shadow p-2 justify-content-between mb-3">
@@ -13,14 +13,14 @@ const TopNav = () => {
       </Link>
 
       {status === "authenticated" ? (
-        <>
+        <div className="d-flex justify-content-end">
           <Link
             href={`/dashboard/${
               data?.user?.role === "admin" ? "admin" : "user"
             }`}
             className="nav-link"
           >
-            {data?.user?.name} {data?.user?.role}
+            {data?.user?.name} ({data?.user?.role})
           </Link>
           <a
             className="nav-link pointer"
@@ -28,7 +28,7 @@ const TopNav = () => {
           >
             Logout
           </a>
-        </>
+        </div>
       ) : status === "loading" ? (
         <a className="nav-link text-danger">Loading</a>
       ) : (
