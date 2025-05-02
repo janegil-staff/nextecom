@@ -14,17 +14,23 @@ const TopNav = () => {
 
       {status === "authenticated" ? (
         <>
-          <Link href="/dashboard/user" className="nav-link">
-            {data?.user?.name}
+          <Link
+            href={`/dashboard/${
+              data?.user?.role === "admin" ? "admin" : "user"
+            }`}
+            className="nav-link"
+          >
+            {data?.user?.name} {data?.user?.role}
           </Link>
           <a
-            href="/logout"
-            className="nav-link"
+            className="nav-link pointer"
             onClick={() => signOut({ callbackUrl: "/login" })}
           >
             Logout
           </a>
         </>
+      ) : status === "loading" ? (
+        <a className="nav-link text-danger">Loading</a>
       ) : (
         <div className="d-flex">
           <Link href="/login" className="nav-link">
