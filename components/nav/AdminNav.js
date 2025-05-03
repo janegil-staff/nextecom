@@ -9,6 +9,9 @@ const AdminNav = () => {
       <Link href="/dashboard/admin/category" className="nav-link">
         Categories
       </Link>
+      <Link href="/dashboard/admin/tag" className="nav-link">
+        Tags
+      </Link>
     </nav>
   );
 };
