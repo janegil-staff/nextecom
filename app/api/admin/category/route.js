@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/utils/dbConnect";
 import Category from "@/models/category";
+import slugify from "slugify";
 
 export async function GET() {
   await dbConnect();
