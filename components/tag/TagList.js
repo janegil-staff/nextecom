@@ -12,7 +12,7 @@ export default function TagList() {
   return (
     <>
       {tags?.map((t) => (
-        <button className="btn" onClick={() => setUpdatingTag(t)}>
+        <button className="btn" key={t._id} onClick={() => setUpdatingTag(t)}>
           {t.name}
         </button>
       ))}

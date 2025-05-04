@@ -64,7 +64,7 @@ export default function TagCreate() {
             <option
               key={c._id}
               value={c._id}
-              selected={
+              defaultValue={
                 c?._id === updatingTag?.parentCategory ||
                 c?._id === parentCategory
               }
