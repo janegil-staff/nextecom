@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 import uniqueValiadtor from "mongoose-unique-validator";
-import Category from "@/models/category";
-import Tag from "@/models/tag";
-import User from "@/models/user";
 
 const ratingSchema = new mongoose.Schema(
   {
