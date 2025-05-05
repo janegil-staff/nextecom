@@ -14,10 +14,37 @@ export const ProductProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [updatingProduct, setUpdatingProduct] = useState(null);
   const [uploading, setUploading] = useState(false);
+  // image preview modal
+  const [showImagePreviewModal, setShowImagePreviewModal] = useState(false);
+  const [currentImagePreviewUrl, setCurrentImagePreviewUrl] = useState("");
 
   const router = useRouter();
+  
+  useEffect(() => {
+    // close modal on clicks on the page
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
 
-  const uploadImages =async (e) => {
+    function handleClickOutside(event) {
+      if (event.target.classList.contains("modal")) {
+        closeModal();
+      }
+    }
+  }, []);
+  const openImagePreviewModal = (url) => {
+    setCurrentImagePreviewUrl(url);
+    setShowImagePreviewModal(true);
+  };
+
+  const closeModal = () => {
+    setShowImagePreviewModal(false);
+    setCurrentImagePreviewUrl("");
+    setShowRatingModal(false);
+  };
+
+  const uploadImages = async (e) => {
     const files = e.target.files;
 
     let allUploadedFiles = updatingProduct
@@ -27,7 +54,6 @@ export const ProductProvider = ({ children }) => {
       : [];
 
     if (files) {
-
       // check if the total combined images exceed 4
       const totalImages = allUploadedFiles?.length + files?.length;
       if (totalImages > 4) {
@@ -40,7 +66,7 @@ export const ProductProvider = ({ children }) => {
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
- 
+
         const promise = new Promise((resolve) => {
           Resizer.imageFileResizer(
             file,
@@ -50,14 +76,12 @@ export const ProductProvider = ({ children }) => {
             100,
             0,
             (uri) => {
-            
-               fetch(`${process.env.API}/admin/upload/image`, {
+              fetch(`${process.env.API}/admin/upload/image`, {
                 method: "POST",
                 body: JSON.stringify({ image: uri }),
               })
                 .then((response) => response.json())
                 .then((data) => {
-        
                   allUploadedFiles.unshift(data);
                   resolve();
                 })
@@ -212,6 +236,10 @@ export const ProductProvider = ({ children }) => {
         totalPages,
         setTotalPages,
         updatingProduct,
+        showImagePreviewModal,
+        currentImagePreviewUrl,
+        openImagePreviewModal,
+        closeModal,
         setUpdatingProduct,
         uploading,
         setUploading,
