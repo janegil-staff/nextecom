@@ -19,7 +19,7 @@ export const ProductProvider = ({ children }) => {
   const [currentImagePreviewUrl, setCurrentImagePreviewUrl] = useState("");
 
   const router = useRouter();
-  
+
   useEffect(() => {
     // close modal on clicks on the page
     window.addEventListener("click", handleClickOutside);
@@ -232,6 +232,7 @@ export const ProductProvider = ({ children }) => {
         setProduct,
         products,
         setProducts,
+        currentPage,
         setCurrentPage,
         totalPages,
         setTotalPages,

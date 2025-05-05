@@ -1,6 +1,8 @@
-import ProductImage from "@/components/product/ProductImage";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import ProductImage from "@/components/product/ProductImage";
+import ProductLike from "@/components/product/ProductLike";
+
 
 export async function generateMetadata({ params }) {
   const product = await getProduct(params?.slug);
@@ -27,18 +29,19 @@ async function getProduct(slug) {
   }
 
   const data = await response.json();
-
   return data;
 }
 
 export default async function ProductViewPage({ params }) {
   const product = await getProduct(params?.slug);
+
   return (
     <div className="container my-4">
       <div className="row">
         <div className="col-lg-8 offset-lg-2 card pt-5">
           <h1 className="text-center">{product?.title}</h1>
-
+          coupon
+          {/* show product images in modal */}
           <ProductImage product={product} />
           <div className="card-body">
             <div
@@ -46,10 +49,40 @@ export default async function ProductViewPage({ params }) {
                 __html: product?.description.replace(/\./g, "<br/><br/>"),
               }}
             />
+
             <div className="alert alert-primary mt-4">
               Brand: {product?.brand}
             </div>
           </div>
+          {/* before accessing category and tags, make sure .populate() is used in api routes and ref: 'Category' models are imported in `Product` model */}
+          <div className="card-footer d-flex justify-content-between">
+            <small>Category: {product?.category?.name}</small>
+            <small>Tags: {product?.tags?.map((t) => t?.name).join(" ")}</small>
+          </div>
+          <div className="card-footer d-flex justify-content-between">
+            <ProductLike product={product} />
+            <small>Posted {dayjs(product?.createdAt).fromNow()}</small>
+          </div>
+
+          <div className="card-footer">
+            Rating
+
+            <div className="my-3">
+              Cart
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col">
+          <h4 className="text-center my-5">Related Products</h4>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-lg-8 offset-lg-2 my-5">
+         User reviews
         </div>
       </div>
     </div>

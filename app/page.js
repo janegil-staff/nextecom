@@ -25,7 +25,7 @@ async function getProducts(searchParams) {
 }
 
 export default async function Home({ searchParams }) {
-  console.log("searchParams => ", searchParams);
+  // console.log("searchParams => ", searchParams);
   const { products, currentPage, totalPages } = await getProducts(searchParams);
 
   return (
@@ -41,6 +41,7 @@ export default async function Home({ searchParams }) {
           </div>
         ))}
       </div>
+
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
