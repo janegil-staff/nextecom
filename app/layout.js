@@ -10,6 +10,7 @@ import { TagProvider } from "@/context/tag";
 import { ProductProvider } from "@/context/product";
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang="en">
       <SessionProvider>

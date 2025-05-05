@@ -276,8 +276,6 @@ export default function ProductCreate() {
           </>
         )}
       </div>
-
-      {/* <pre>{JSON.stringify(product, null, 4)}</pre> */}
     </div>
   );
 }
