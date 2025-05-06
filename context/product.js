@@ -21,6 +21,8 @@ export const ProductProvider = ({ children }) => {
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [currentRating, setCurrentRating] = useState(0);
   const [comment, setComment] = useState("");
+  // brands
+  const [brands, setBrands] = useState([]);
 
   const router = useRouter();
 
@@ -139,6 +141,24 @@ export const ProductProvider = ({ children }) => {
         console.log("image delete err => ", err);
       })
       .finally(() => setUploading(false));
+  };
+
+  const fetchBrands = async () => {
+    try {
+      const response = await fetch(`${process.env.API}/product/brands`, {
+        method: "GET",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data?.err);
+      } else {
+        setBrands(data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const createProduct = async () => {
@@ -260,6 +280,8 @@ export const ProductProvider = ({ children }) => {
         setShowRatingModal,
         comment,
         setComment,
+        fetchBrands,
+        brands,
       }}
     >
       {children}

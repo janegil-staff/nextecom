@@ -11,6 +11,8 @@ export const CategoryProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   // for update and delete
   const [updatingCategory, setUpdatingCategory] = useState(null);
+  // brands
+  const [brands, setBrands] = useState([]);
 
   const createCategory = async () => {
     try {
@@ -67,6 +69,24 @@ export const CategoryProvider = ({ children }) => {
     } catch (err) {
       console.log(err);
       toast.error("An error occurred. Try again");
+    }
+  };
+
+  const fetchBrands = async () => {
+    try {
+      const response = await fetch(`${process.env.API}/product/brands`, {
+        method: "GET",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data?.err);
+      } else {
+        setBrands(data);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -143,6 +163,8 @@ export const CategoryProvider = ({ children }) => {
         fetchCategoriesPublic,
         updateCategory,
         deleteCategory,
+        fetchBrands,
+        brands,
       }}
     >
       {children}
