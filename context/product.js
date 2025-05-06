@@ -17,6 +17,10 @@ export const ProductProvider = ({ children }) => {
   // image preview modal
   const [showImagePreviewModal, setShowImagePreviewModal] = useState(false);
   const [currentImagePreviewUrl, setCurrentImagePreviewUrl] = useState("");
+  // rating system
+  const [showRatingModal, setShowRatingModal] = useState(false);
+  const [currentRating, setCurrentRating] = useState(0);
+  const [comment, setComment] = useState("");
 
   const router = useRouter();
 
@@ -250,6 +254,12 @@ export const ProductProvider = ({ children }) => {
         fetchProducts,
         updateProduct,
         deleteProduct,
+        currentRating,
+        setCurrentRating,
+        showRatingModal,
+        setShowRatingModal,
+        comment,
+        setComment,
       }}
     >
       {children}
