@@ -3,6 +3,7 @@ import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import ProductRating from "@/components/product/ProductRating";
+import AddToCart from "./AddToCart";
 
 dayjs.extend(relativeTime);
 
@@ -55,8 +56,9 @@ export default function ({ product }) {
         <ProductRating product={product} leaveARating={false} />
       </div>
 
-
-
+      <div className="card-footer">
+        <AddToCart product={product} />
+      </div>
     </div>
   );
 }

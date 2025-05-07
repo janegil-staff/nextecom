@@ -2,10 +2,13 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useProduct } from "@/context/product";
+import { BsFillCartCheckFill } from "react-icons/bs";
+import { useCart } from "@/context/cart";
 
 export default function TopNav() {
   const { data, status } = useSession();
-  
+  const { cartItems } = useCart();
+
   const {
     productSearchQuery,
     setProductSearchQuery,
@@ -42,6 +45,9 @@ export default function TopNav() {
       </form>
 
       <div className="d-flex justify-content-end">
+        <Link href="/cart" className="nav-link text-danger">
+          <BsFillCartCheckFill size={25} /> {cartItems?.length}
+        </Link>
         {status === "authenticated" ? (
           <>
             <Link
