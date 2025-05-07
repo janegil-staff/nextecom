@@ -5,8 +5,7 @@ import { useProduct } from "@/context/product";
 
 export default function TopNav() {
   const { data, status } = useSession();
- 
-  // console.log(data, status);
+  
   const {
     productSearchQuery,
     setProductSearchQuery,
@@ -23,6 +22,24 @@ export default function TopNav() {
           SHOP
         </Link>
       </div>
+
+      <form
+        className="d-flex mx-2 mb-0"
+        role="search"
+        onSubmit={fetchProductSearchResults}
+      >
+        <input
+          type="search"
+          className="form-control"
+          placeholder="Search products"
+          aria-label="Search"
+          onChange={(e) => setProductSearchQuery(e.target.value)}
+          value={productSearchQuery}
+        />
+        <button className="btn rounded-pill" type="submit">
+          &#128270;
+        </button>
+      </form>
 
       <div className="d-flex justify-content-end">
         {status === "authenticated" ? (

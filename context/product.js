@@ -23,6 +23,9 @@ export const ProductProvider = ({ children }) => {
   const [comment, setComment] = useState("");
   // brands
   const [brands, setBrands] = useState([]);
+  // text based search
+  const [productSearchQuery, setProductSearchQuery] = useState("");
+  const [productSearchResults, setProductSearchResults] = useState([]);
 
   const router = useRouter();
 
@@ -249,6 +252,28 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
+  const fetchProductSearchResults = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `${process.env.API}/search/products?productSearchQuery=${productSearchQuery}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok for search results");
+      }
+      const data = await response.json();
+      console.log("search results data => ", data);
+      setProductSearchResults(data);
+      router.push(`/search/products?productSearchQuery=${productSearchQuery}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <ProductContext.Provider
       value={{
@@ -282,6 +307,11 @@ export const ProductProvider = ({ children }) => {
         setComment,
         fetchBrands,
         brands,
+        productSearchQuery,
+        setProductSearchQuery,
+        productSearchResults,
+        setProductSearchResults,
+        fetchProductSearchResults,
       }}
     >
       {children}
