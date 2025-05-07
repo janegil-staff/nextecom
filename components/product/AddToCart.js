@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useCart } from "@/context/cart";
 import Link from "next/link";
+import { useCart } from "@/context/cart";
 
 export default function AddToCart({ product, reviewAndCheckout = true }) {
   const { addToCart, updateQuantity, removeFromCart, cartItems } = useCart();
