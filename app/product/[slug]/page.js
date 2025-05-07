@@ -3,6 +3,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import ProductImage from "@/components/product/ProductImage";
 import ProductLike from "@/components/product/ProductLike";
 import ProductRating from "@/components/product/ProductRating";
+import UserReviews from "@/components/product/UserReviews";
 
 export async function generateMetadata({ params }) {
   const product = await getProduct(params?.slug);
@@ -40,7 +41,7 @@ export default async function ProductViewPage({ params }) {
       <div className="row">
         <div className="col-lg-8 offset-lg-2 card pt-5">
           <h1 className="text-center">{product?.title}</h1>
-          coupon
+
           {/* show product images in modal */}
           <ProductImage product={product} />
           <div className="card-body">
@@ -63,10 +64,9 @@ export default async function ProductViewPage({ params }) {
             <ProductLike product={product} />
             <small>Posted {dayjs(product?.createdAt).fromNow()}</small>
           </div>
+
           <div className="card-footer">
             <ProductRating product={product} />
-
-            <div className="my-3">Cart</div>
           </div>
         </div>
       </div>
@@ -78,7 +78,9 @@ export default async function ProductViewPage({ params }) {
       </div>
 
       <div className="row">
-        <div className="col-lg-8 offset-lg-2 my-5">User reviews</div>
+        <div className="col-lg-8 offset-lg-2 my-5">
+          <UserReviews reviews={product?.ratings} />
+        </div>
       </div>
     </div>
   );
